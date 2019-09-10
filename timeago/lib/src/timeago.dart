@@ -41,8 +41,9 @@ String format(DateTime since, {
   String intercept(Duration duration, {DateTime since}),
 }) {
   final _locale = locale ?? 'en';
-  final _allowFromNow = allowFromNow ?? false;
   final messages = _lookupMessagesMap[_locale] ?? EnMessages();
+
+  final _allowFromNow = allowFromNow ?? false;
   final _until = until ?? DateTime.now();
   final duration = _until.difference(since);
 
@@ -62,6 +63,19 @@ String format(DateTime since, {
     prefix = messages.prefixAgo();
     suffix = messages.suffixAgo();
   }
+
+  final result = formatDuration(duration, locale: _locale);
+
+  return [prefix, result, suffix]
+      .where((str) => str != null && str.isNotEmpty)
+      .join(messages.wordSeparator());
+}
+
+String formatDuration(Duration duration, {
+  String locale,
+}) {
+  final _locale = locale ?? 'en';
+  final messages = _lookupMessagesMap[_locale] ?? EnMessages();
 
   final seconds = duration.inSeconds.abs();
   final minutes = duration.inMinutes.abs();
@@ -93,8 +107,5 @@ String format(DateTime since, {
     result = messages.aboutAYear(months);
   else
     result = messages.years(years);
-
-  return [prefix, result, suffix]
-      .where((str) => str != null && str.isNotEmpty)
-      .join(messages.wordSeparator());
+  return result;
 }
