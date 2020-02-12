@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+pub run intl_translation:generate_from_arb --output-dir=lib/gen  lib/l10n.dart  lib/src/messages/*.arb

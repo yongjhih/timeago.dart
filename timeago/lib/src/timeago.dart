@@ -1,6 +1,7 @@
 import 'package:timeago/src/messages/en_messages.dart';
 import 'package:timeago/src/messages/es_messages.dart';
 import 'package:timeago/src/messages/lookupmessages.dart';
+import 'package:intl/intl.dart';
 
 Map<String, LookupMessages> _lookupMessagesMap = {
   'en': EnMessages(),
@@ -23,6 +24,7 @@ Map<String, LookupMessages> _lookupMessagesMap = {
 void setLocaleMessages(String locale, LookupMessages lookupMessages) {
   assert(locale != null, '[locale] must not be null');
   assert(lookupMessages != null, '[lookupMessages] must not be null');
+  //Intl.plural(howMany)
   _lookupMessagesMap[locale] = lookupMessages;
 }
 
